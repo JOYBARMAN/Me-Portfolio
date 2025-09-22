@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import emailjs from "emailjs-com";
-import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin } from "react-icons/fa";
 
 const Contact = ({ sectionRef }) => {
     const [formData, setFormData] = useState({ name: "", email: "", message: "" });
@@ -137,33 +136,6 @@ const Contact = ({ sectionRef }) => {
                         </p>
                     )}
                 </motion.form>
-
-                {/* Social Icons */}
-                <motion.div
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8 }}
-                    viewport={{ once: true }}
-                    className="flex justify-center space-x-8 mt-12 text-3xl"
-                >
-                    {[
-                        { href: "https://facebook.com", icon: <FaFacebook /> },
-                        { href: "https://twitter.com", icon: <FaTwitter /> },
-                        { href: "https://instagram.com", icon: <FaInstagram /> },
-                        { href: "https://linkedin.com", icon: <FaLinkedin /> },
-                    ].map((social, i) => (
-                        <motion.a
-                            key={i}
-                            href={social.href}
-                            target="_blank"
-                            rel="noreferrer"
-                            whileHover={{ scale: 1.2, rotate: 5 }}
-                            className="text-gray-600 dark:text-gray-300 hover:text-emerald-700 dark:hover:text-emerald-400 transition-colors"
-                        >
-                            {social.icon}
-                        </motion.a>
-                    ))}
-                </motion.div>
             </div>
         </section>
     );

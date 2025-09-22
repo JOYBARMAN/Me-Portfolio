@@ -2,11 +2,10 @@ import React from "react";
 import { motion } from "framer-motion";
 import ProfileImage from "../assets/about.jpg";
 
-const About = ({ sectionRef }) => {
+const About = () => {
     return (
         <section
             id="about"
-            ref={sectionRef}
             className="relative py-20 px-6 overflow-hidden transition-colors duration-500
                        bg-gradient-to-b from-gray-100 via-gray-200 to-gray-100 dark:from-black dark:via-gray-900 dark:to-gray-800"
         >
@@ -23,19 +22,19 @@ const About = ({ sectionRef }) => {
                 animate={{ scale: 1, opacity: 1 }}
                 transition={{ duration: 1.5 }}
             />
+            {/* TabBar Component */}
 
             <div className="container mx-auto text-center relative z-10">
                 {/* Title */}
                 <motion.h2
-                    initial={{ opacity: 0, y: -30 }}
+                    initial={{ opacity: 0, y: -40 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8 }}
+                    transition={{ duration: 1 }}
                     viewport={{ once: true }}
-                    className="text-4xl md:text-5xl font-extrabold mb-12 text-gray-900 dark:text-gray-100"
+                    className="text-4xl md:text-5xl font-extrabold text-center mb-20 text-gray-900 dark:text-white"
                 >
                     About <span className="text-emerald-700 dark:text-emerald-400">Me</span>
                 </motion.h2>
-
                 <div className="flex flex-col md:flex-row items-center gap-12 justify-center">
                     {/* Text */}
                     <motion.div

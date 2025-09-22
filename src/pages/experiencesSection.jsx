@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaBriefcase } from "react-icons/fa";
 
-const Experience = ({ sectionRef, experiences }) => {
+const Experience = ({ experiencesData }) => {
     const [expandedIndex, setExpandedIndex] = useState(null);
 
     const toggleExpand = (index) => {
@@ -22,7 +22,6 @@ const Experience = ({ sectionRef, experiences }) => {
     return (
         <section
             id="experiences"
-            ref={sectionRef}
             className="relative py-20 px-6 overflow-hidden transition-colors duration-500
                        bg-gradient-to-b from-gray-100 via-gray-200 to-gray-100 dark:from-black dark:via-gray-900 dark:to-gray-800"
         >
@@ -70,7 +69,7 @@ const Experience = ({ sectionRef, experiences }) => {
                         whileInView="show"
                         viewport={{ once: true }}
                     >
-                        {experiences.map((exp, index) => {
+                        {experiencesData.map((exp, index) => {
                             const isExpanded = expandedIndex === index;
                             return (
                                 <motion.div

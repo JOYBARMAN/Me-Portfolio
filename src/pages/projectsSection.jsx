@@ -1,21 +1,25 @@
 import React, { useState } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
-const Projects = ({ sectionRef, projects }) => {
+const Projects = ({ projects }) => {
     const [activeIndex, setActiveIndex] = useState(null);
 
-    const toggleActive = (index) => {
-        setActiveIndex(activeIndex === index ? null : index);
+    const handleEnter = (i) => setActiveIndex(i);
+    const handleLeave = () => setActiveIndex(null);
+    const handleClick = (i) => {
+        if (typeof window !== "undefined" && window.innerWidth <= 768) {
+            setActiveIndex((prev) => (prev === i ? null : i));
+        }
     };
 
     return (
         <section
             id="projects"
-            ref={sectionRef}
             className="relative py-20 px-6 overflow-hidden transition-colors duration-500
-                       bg-gradient-to-b from-gray-100 via-gray-200 to-gray-100 dark:from-black dark:via-gray-900 dark:to-gray-800"
+                 bg-gradient-to-b from-gray-100 via-gray-200 to-gray-100
+                 dark:from-black dark:via-gray-900 dark:to-gray-800"
         >
-            {/* Decorative blurred circles like RecentWork */}
+            {/* Decorative blurred circles */}
             <motion.div
                 className="absolute top-0 left-1/4 w-48 h-48 rounded-full blur-3xl bg-pink-400/20 dark:bg-purple-600/20"
                 initial={{ scale: 0, opacity: 0 }}
@@ -42,90 +46,78 @@ const Projects = ({ sectionRef, projects }) => {
                 </motion.h2>
 
                 {/* Grid */}
-                <motion.div
-                    className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10"
-                    initial="hidden"
-                    whileInView="show"
-                    viewport={{ once: true, amount: 0.3 }}
-                >
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
                     {projects.map((project, index) => {
                         const isActive = activeIndex === index;
                         return (
                             <motion.div
                                 key={index}
-                                initial={{ opacity: 0, y: 60, scale: 0.9 }}
-                                whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                                onMouseEnter={() => handleEnter(index)}
+                                onMouseLeave={handleLeave}
+                                onClick={() => handleClick(index)}
+                                initial={{ opacity: 0, y: 30 }}
+                                whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
-                                transition={{ duration: 0.7, ease: "easeOut" }}
-                                className="relative group cursor-pointer rounded-2xl overflow-hidden shadow-xl
-                                           bg-white/70 dark:bg-gray-800/60 backdrop-blur-lg border border-gray-200 dark:border-gray-700
-                                           transition-all duration-300"
-                                onClick={() => toggleActive(index)}
-                                whileHover={{ scale: 1.05 }}
+                                transition={{ duration: 0.45, ease: "easeOut" }}
+                                className="relative rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700
+                           bg-white/70 dark:bg-gray-800/60 backdrop-blur-lg p-6 flex flex-col transition-all duration-300 overflow-visible"
                             >
-                                {/* Project Image */}
-                                <div className="relative">
+                                {/* Image with overlay animation */}
+                                <div className="relative overflow-hidden rounded-xl mb-4">
                                     <img
                                         src={project.image}
                                         alt={project.title}
-                                        className="w-full h-64 object-cover rounded-2xl transform group-hover:scale-105 transition duration-700"
+                                        className="w-full h-36 object-cover rounded-xl transition-transform duration-700 group-hover:scale-105"
                                     />
-                                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent rounded-2xl"></div>
+
+                                    {/* Overlay slides from top to center */}
+                                    <AnimatePresence>
+                                        {isActive && (
+                                            <motion.div
+                                                initial={{ y: "-100%", opacity: 0 }}
+                                                animate={{ y: "0%", opacity: 1 }}
+                                                exit={{ y: "-100%", opacity: 0 }}
+                                                transition={{ duration: 0.4, ease: "easeOut" }}
+                                                className="absolute inset-0 bg-black/60 flex items-center justify-center"
+                                            >
+                                                <a
+                                                    href={project.liveLink}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className="px-5 py-2 bg-emerald-600 text-white font-semibold rounded-full shadow-lg hover:bg-emerald-700 transition"
+                                                >
+                                                    Live Demo
+                                                </a>
+                                            </motion.div>
+                                        )}
+                                    </AnimatePresence>
                                 </div>
 
-                                {/* Overlay (hover / click) */}
-                                <motion.div
-                                    initial={{ y: "100%" }}
-                                    animate={{ y: isActive ? 0 : "100%" }}
-                                    whileHover={{ y: 0 }}
-                                    transition={{ duration: 0.4, ease: "easeInOut" }}
-                                    className="absolute inset-0 bg-black/80 flex flex-col justify-center items-center p-6 text-center text-white"
-                                >
-                                    <h3 className="text-2xl font-bold mb-3">{project.title}</h3>
-                                    <p className="text-sm mb-4 opacity-90">
-                                        {project.description.length > 150
-                                            ? project.description.slice(0, 150) + "..."
-                                            : project.description}
-                                    </p>
+                                {/* Title */}
+                                <h3 className="text-xl font-bold mb-2 text-gray-900 dark:text-gray-100">
+                                    {project.title}
+                                </h3>
 
-                                    {/* Tech Tags */}
-                                    <div className="flex flex-wrap gap-2 justify-center mb-5">
-                                        {project.technologies.map((tech, i) => (
-                                            <span
-                                                key={i}
-                                                className="px-3 py-1 text-xs font-medium rounded-full bg-emerald-600 text-white shadow-md"
-                                            >
-                                                {tech}
-                                            </span>
-                                        ))}
-                                    </div>
+                                {/* Description */}
+                                <p className="text-sm text-gray-600 dark:text-gray-300 mb-4 line-clamp-3">
+                                    {project.description}
+                                </p>
 
-                                    {/* Buttons */}
-                                    <div className="flex gap-4">
-                                        <a
-                                            href={project.liveLink}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="px-4 py-2 bg-emerald-600 text-white font-semibold rounded-full hover:bg-emerald-700 transition"
+                                {/* Tech Tags (emerald green) */}
+                                <div className="flex flex-wrap gap-2">
+                                    {project.technologies.map((tech, i) => (
+                                        <span
+                                            key={i}
+                                            className="px-3 py-1 text-xs font-medium rounded-full bg-emerald-600 text-white shadow-md"
                                         >
-                                            Live Demo
-                                        </a>
-                                        {project.codeLink && (
-                                            <a
-                                                href={project.codeLink}
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                                className="px-4 py-2 border border-white text-white font-semibold rounded-full hover:bg-white hover:text-emerald-700 transition"
-                                            >
-                                                View Code
-                                            </a>
-                                        )}
-                                    </div>
-                                </motion.div>
+                                            {tech}
+                                        </span>
+                                    ))}
+                                </div>
                             </motion.div>
                         );
                     })}
-                </motion.div>
+                </div>
             </div>
         </section>
     );

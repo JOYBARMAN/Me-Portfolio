@@ -1,4 +1,5 @@
-export const sections = ["hero", "about", "production-projects", "experiences", "projects", "skills", "contact"];
+import { FaStar, FaJsSquare, FaReact, FaPython, FaDocker } from "react-icons/fa";
+import { SiDjango, SiMysql, SiPostgresql, SiRedis, SiElasticsearch, SiCelery, SiHtml5, SiCss3, SiBootstrap } from "react-icons/si";
 
 export const projects = [
     {
@@ -60,9 +61,9 @@ export const experiences = [
     },
 ];
 
-export const workExperiences = [
+export const productionProjects = [
     {
-        title: "Notifications WebSocket Package",
+        title: "Notifications WebSocket Packege",
         role: "Back-End Developer",
         duration: "2024",
         tasks: [
@@ -125,16 +126,64 @@ export const workExperiences = [
     }
 ];
 
+export const skillCategories = ["All", "Languages", "Backend", "Frontend", "Database", "Tools", "Development", "OS", "Leadership"];
+
 export const skills = [
-    { name: "React", rating: 5 },
-    { name: "Tailwind CSS", rating: 5 },
-    { name: "Node.js", rating: 4 },
-    { name: "Firebase", rating: 4 },
-    { name: "MongoDB", rating: 3 },
-    { name: "JavaScript", rating: 5 },
-    { name: "TypeScript", rating: 4 },
-    { name: "HTML5", rating: 5 },
-    { name: "CSS3", rating: 5 },
-    { name: "Git", rating: 4 }
+    // Programming Languages
+    { name: "Python", category: "Languages", rating: 5, icon: <FaPython className="text-blue-500 w-10 h-10" /> },
+    { name: "JavaScript", category: "Languages", rating: 5, icon: <FaJsSquare className="text-yellow-500 w-10 h-10" /> },
+    { name: "C", category: "Languages", rating: 3, icon: <FaStar className="text-gray-500 w-10 h-10" /> },
+
+    // Frameworks
+    { name: "Django", category: "Backend", rating: 5, icon: <SiDjango className="text-green-700 w-10 h-10" /> },
+    { name: "Django REST Framework", category: "Backend", rating: 5, icon: <SiDjango className="text-green-700 w-10 h-10" /> },
+    { name: "React JS", category: "Frontend", rating: 5, icon: <FaReact className="text-cyan-500 w-10 h-10" /> },
+
+    // Tools & Technologies
+    { name: "WebSocket", category: "Tools", rating: 4, icon: <FaStar className="text-gray-500 w-10 h-10" /> },
+    { name: "Elasticsearch", category: "Tools", rating: 4, icon: <SiElasticsearch className="text-blue-600 w-10 h-10" /> },
+    { name: "Redis", category: "Tools", rating: 4, icon: <SiRedis className="text-red-500 w-10 h-10" /> },
+    { name: "Celery", category: "Tools", rating: 4, icon: <SiCelery className="text-purple-600 w-10 h-10" /> },
+    { name: "Docker", category: "Tools", rating: 4, icon: <FaDocker className="text-sky-500 w-10 h-10" /> },
+    { name: "Unit / Py / Async Testing", category: "Tools", rating: 4, icon: <FaStar className="text-gray-500 w-10 h-10" /> },
+
+    // Database
+    { name: "PostgreSQL", category: "Database", rating: 4, icon: <SiPostgresql className="text-blue-700 w-10 h-10" /> },
+    { name: "MySQL", category: "Database", rating: 3, icon: <SiMysql className="text-blue-600 w-10 h-10" /> },
+
+    // Frontend / Web
+    { name: "HTML", category: "Frontend", rating: 5, icon: <SiHtml5 className="text-orange-500 w-10 h-10" /> },
+    { name: "CSS", category: "Frontend", rating: 5, icon: <SiCss3 className="text-blue-500 w-10 h-10" /> },
+    { name: "Bootstrap", category: "Frontend", rating: 4, icon: <SiBootstrap className="text-purple-500 w-10 h-10" /> },
+
+    // Software Development
+    { name: "Agile & CI/CD", category: "Development", rating: 4, icon: <FaStar className="text-gray-500 w-10 h-10" /> },
+    { name: "TDD", category: "Development", rating: 4, icon: <FaStar className="text-gray-500 w-10 h-10" /> },
+
+    // OS
+    { name: "Linux", category: "OS", rating: 5, icon: <FaStar className="text-gray-700 w-10 h-10" /> },
+    { name: "Windows", category: "OS", rating: 4, icon: <FaStar className="text-blue-500 w-10 h-10" /> },
+
+    // Leadership
+    { name: "Team Leadership", category: "Leadership", rating: 4, icon: <FaStar className="text-gray-500 w-10 h-10" /> },
 ];
 
+
+export const educations = [
+    {
+        degree: "B.Sc. in Software Engineering",
+        institution: "Daffodil International University",
+        duration: "2016 - 2020",
+        description:
+            "Specialized in software engineering and algorithms. Graduated with honors and top 5% of class.",
+        certificateLink: "https://example.com/certificate.pdf"
+    },
+    {
+        degree: "Machine Learning Foundations",
+        institution: "University of Washington (Coursera)",
+        duration: "2020",
+        description:
+            "Focused on machine learning, deep learning, and NLP. Completed thesis on transformer architectures.",
+        certificateLink: "https://drive.google.com/file/d/1XBbFvZf0_BZWz3xSaWHwjfyJGDhwfojB/view?usp=sharing"
+    }
+];

@@ -1,57 +1,14 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { FaStar, FaJsSquare, FaReact, FaPython, FaDocker } from "react-icons/fa";
-import { SiDjango, SiMysql, SiPostgresql, SiRedis, SiElasticsearch, SiCelery, SiHtml5, SiCss3, SiBootstrap } from "react-icons/si";
+import { FaStar } from "react-icons/fa";
 
-const skillsPayload = [
-    // Programming Languages
-    { name: "Python", category: "Languages", rating: 5, icon: <FaPython className="text-blue-500 w-10 h-10" /> },
-    { name: "JavaScript", category: "Languages", rating: 5, icon: <FaJsSquare className="text-yellow-500 w-10 h-10" /> },
-    { name: "C", category: "Languages", rating: 3, icon: <FaStar className="text-gray-500 w-10 h-10" /> },
-
-    // Frameworks
-    { name: "Django", category: "Backend", rating: 5, icon: <SiDjango className="text-green-700 w-10 h-10" /> },
-    { name: "Django REST Framework", category: "Backend", rating: 5, icon: <SiDjango className="text-green-700 w-10 h-10" /> },
-    { name: "React JS", category: "Frontend", rating: 5, icon: <FaReact className="text-cyan-500 w-10 h-10" /> },
-
-    // Tools & Technologies
-    { name: "WebSocket", category: "Tools", rating: 4, icon: <FaStar className="text-gray-500 w-10 h-10" /> },
-    { name: "Elasticsearch", category: "Tools", rating: 4, icon: <SiElasticsearch className="text-blue-600 w-10 h-10" /> },
-    { name: "Redis", category: "Tools", rating: 4, icon: <SiRedis className="text-red-500 w-10 h-10" /> },
-    { name: "Celery", category: "Tools", rating: 4, icon: <SiCelery className="text-purple-600 w-10 h-10" /> },
-    { name: "Docker", category: "Tools", rating: 4, icon: <FaDocker className="text-sky-500 w-10 h-10" /> },
-    { name: "Unit / Py / Async Testing", category: "Tools", rating: 4, icon: <FaStar className="text-gray-500 w-10 h-10" /> },
-
-    // Database
-    { name: "PostgreSQL", category: "Database", rating: 4, icon: <SiPostgresql className="text-blue-700 w-10 h-10" /> },
-    { name: "MySQL", category: "Database", rating: 3, icon: <SiMysql className="text-blue-600 w-10 h-10" /> },
-
-    // Frontend / Web
-    { name: "HTML", category: "Frontend", rating: 5, icon: <SiHtml5 className="text-orange-500 w-10 h-10" /> },
-    { name: "CSS", category: "Frontend", rating: 5, icon: <SiCss3 className="text-blue-500 w-10 h-10" /> },
-    { name: "Bootstrap", category: "Frontend", rating: 4, icon: <SiBootstrap className="text-purple-500 w-10 h-10" /> },
-
-    // Software Development
-    { name: "Agile & CI/CD", category: "Development", rating: 4, icon: <FaStar className="text-gray-500 w-10 h-10" /> },
-    { name: "TDD", category: "Development", rating: 4, icon: <FaStar className="text-gray-500 w-10 h-10" /> },
-
-    // OS
-    { name: "Linux", category: "OS", rating: 5, icon: <FaStar className="text-gray-700 w-10 h-10" /> },
-    { name: "Windows", category: "OS", rating: 4, icon: <FaStar className="text-blue-500 w-10 h-10" /> },
-
-    // Leadership
-    { name: "Team Leadership", category: "Leadership", rating: 4, icon: <FaStar className="text-gray-500 w-10 h-10" /> },
-];
-
-const categories = ["All", "Languages", "Backend", "Frontend", "Database", "Tools", "Development", "OS", "Leadership"];
-
-const Skills = ({ sectionRef }) => {
+const Skills = ({ skillData, skillCategories }) => {
     const [activeCategory, setActiveCategory] = useState("All");
-    const [skills, setSkills] = useState(skillsPayload);
+    const [skills, setSkills] = useState(skillData);
 
     const skillsFiltered = (category) => {
         setActiveCategory(category);
-        setSkills(category === "All" ? skillsPayload : skillsPayload.filter((skill) => skill.category === category));
+        setSkills(category === "All" ? skillData : skillData.filter((skill) => skill.category === category));
     };
 
     const containerVariants = { hidden: {}, show: { transition: { staggerChildren: 0.15 } } };
@@ -61,7 +18,6 @@ const Skills = ({ sectionRef }) => {
     return (
         <section
             id="skills"
-            ref={sectionRef}
             className="relative py-20 px-6 overflow-hidden transition-colors duration-500
                        bg-gradient-to-b from-gray-100 via-gray-200 to-gray-100 dark:from-black dark:via-gray-900 dark:to-gray-800"
         >
@@ -93,7 +49,7 @@ const Skills = ({ sectionRef }) => {
 
                 {/* Category Buttons */}
                 <div className="flex justify-center flex-wrap gap-4 mb-12">
-                    {categories.map((cat) => (
+                    {skillCategories.map((cat) => (
                         <button
                             key={cat}
                             onClick={() => skillsFiltered(cat)}
